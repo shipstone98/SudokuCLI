@@ -51,7 +51,7 @@ public struct SudokuGrid : Sudoku {
     
     private func columnContains(column: Int, n: Int) -> Bool {
         for row in 0..<9 {
-            if self.cells[row * 9 + column] == n {
+            guard self.cells[row * 9 + column] != n else {
                 return true
             }
         }
@@ -60,7 +60,7 @@ public struct SudokuGrid : Sudoku {
     }
     
     internal func getCandidates(index: Int) -> [Int] {
-        if self.cells[index] > 0 {
+        guard self.cells[index] == 0 else {
             return []
         }
         
@@ -83,7 +83,7 @@ public struct SudokuGrid : Sudoku {
     
     private func rowContains(row: Int, n: Int) -> Bool {
         for column in 0..<9 {
-            if self.cells[row * 9 + column] == n {
+            guard self.cells[row * 9 + column] != n else {
                 return true
             }
         }

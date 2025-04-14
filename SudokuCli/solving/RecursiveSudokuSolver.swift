@@ -23,12 +23,12 @@ public struct RecursiveSudokuSolver : SudokuSolver {
     }
     
     public mutating func solve() -> Bool {
-        return self.solve(index: 0)
+        return self.solve(at: 0)
     }
     
-    private mutating func solve(index: Int) -> Bool {
-        if self.grid.cells[index] > 0 {
-            return self.solveNext(index: index)
+    private mutating func solve(at index: Int) -> Bool {
+        guard self.grid.cells[index] == 0 else {
+            return self.solveNext(at: index)
         }
         
         var candidates = self.grid.getCandidates(index: index)
@@ -43,7 +43,7 @@ public struct RecursiveSudokuSolver : SudokuSolver {
             let move = SudokuSolverMove(nil, location)
             self.movesMutable.append(move)
             
-            if self.solveNext(index: index) {
+            guard !self.solveNext(at: index) else {
                 return true
             }
             
@@ -54,7 +54,7 @@ public struct RecursiveSudokuSolver : SudokuSolver {
         return false
     }
     
-    private mutating func solveNext(index: Int) -> Bool {
-        return index == 80 || self.solve(index: index + 1)
+    private mutating func solveNext(at index: Int) -> Bool {
+        return index == 80 || self.solve(at: index + 1)
     }
 }

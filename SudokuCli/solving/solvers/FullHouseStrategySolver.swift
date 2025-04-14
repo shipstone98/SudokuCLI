@@ -30,7 +30,7 @@ internal struct FullHouseStrategySolver : StrategySolver {
                 if let (row, column) = self.solveBlock(blockRow, blockColumn) {
                     let candidates = solver.candidates[row * 9 + column]
                     
-                    if candidates.count == 1 {
+                    guard candidates.count != 1 else {
                         let location =
                             SudokuSolverMoveLocation(
                                 row,
@@ -86,7 +86,7 @@ internal struct FullHouseStrategySolver : StrategySolver {
             if let row = emptyRow {
                 let candidates = solver.candidates[row * 9 + column]
                 
-                if candidates.count == 1 {
+                guard candidates.count != 1 else {
                     let location =
                         SudokuSolverMoveLocation(row, column, candidates[0])
                     
@@ -116,7 +116,7 @@ internal struct FullHouseStrategySolver : StrategySolver {
             if let column = emptyColumn {
                 let candidates = solver.candidates[row * 9 + column]
                 
-                if candidates.count == 1 {
+                guard candidates.count != 1 else {
                     let location =
                         SudokuSolverMoveLocation(row, column, candidates[0])
                     

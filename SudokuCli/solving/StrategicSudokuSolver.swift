@@ -112,19 +112,19 @@ public struct StrategicSudokuSolver : SudokuSolver {
             var isSolved = false
             
             for strategy in strategies {
-                if self.solveOnce(strategy: strategy) {
+                guard !self.solveOnce(strategy: strategy) else {
                     isSolved = true
                     break
                 }
             }
             
-            if !isSolved {
+            guard isSolved else {
                 break
             }
         }
         
         for index in 0..<81 {
-            if self.grid.cells[index] == 0 {
+            guard self.grid.cells[index] != 0 else {
                 return false
             }
         }

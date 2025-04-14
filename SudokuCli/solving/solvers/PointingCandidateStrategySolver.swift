@@ -75,7 +75,7 @@ internal struct PointingCandidateStrategySolver: StrategySolver {
             }
         }
         
-        if rows.count > 0 {
+        guard rows.count == 0 else {
             var locations: [SudokuSolverMoveLocation] = []
             
             for row in rows {
@@ -108,7 +108,7 @@ internal struct PointingCandidateStrategySolver: StrategySolver {
             }
         }
         
-        if columns.count > 0 {
+        guard columns.count == 0 else {
             var locations: [SudokuSolverMoveLocation] = []
             
             for column in columns {
