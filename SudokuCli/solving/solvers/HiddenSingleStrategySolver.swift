@@ -5,7 +5,7 @@
 //  Created by Christopher Shipstone on 03/04/2025.
 //
 
-internal struct HiddenSingleStrategySolver: StrategySolver {
+internal struct HiddenSingleStrategySolver : StrategySolver {
     private let solver: StrategicSudokuSolver
     
     internal init(using solver: StrategicSudokuSolver) {

@@ -5,7 +5,7 @@
 //  Created by Christopher Shipstone on 08/04/2025.
 //
 
-internal struct XWingStrategySolver: StrategySolver {
+internal struct XWingStrategySolver : StrategySolver {
     private let solver: StrategicSudokuSolver
     
     internal init(using solver: StrategicSudokuSolver) {
