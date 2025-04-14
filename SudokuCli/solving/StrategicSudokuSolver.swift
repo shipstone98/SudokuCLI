@@ -77,7 +77,7 @@ public struct StrategicSudokuSolver : SudokuSolver {
         case .nakedPair:
             solver = NakedPairStrategySolver(using: self)
         case .hiddenPair:
-            return false
+            solver = HiddenPairStrategySolver(using: self)
         case .xWing:
             solver = XWingStrategySolver(using: self)
         }
