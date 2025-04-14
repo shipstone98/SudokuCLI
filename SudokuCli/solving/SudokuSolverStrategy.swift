@@ -14,6 +14,7 @@ public enum SudokuSolverStrategy : CaseIterable, CustomStringConvertible {
     case nakedPair
     case hiddenPair
     case xWing
+    case uniqueRectangleType1
     
     public var description: String {
         switch self {
@@ -33,6 +34,8 @@ public enum SudokuSolverStrategy : CaseIterable, CustomStringConvertible {
             return "Hidden Pair"
         case .xWing:
             return "X-Wing"
+        case .uniqueRectangleType1:
+            return "Unique Rectangle Type 1"
         }
     }
 }

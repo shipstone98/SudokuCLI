@@ -57,10 +57,35 @@ public struct StrategicSudokuSolver : SudokuSolver {
     }
     
     public mutating func solve() -> Bool {
-        return self.solveUsing(strategies: self.strategies)
+        return self.solve(using: self.strategies)
     }
     
-    public mutating func solveOnce(strategy: SudokuSolverStrategy) -> Bool {
+    public mutating func solve(using strategies: [SudokuSolverStrategy]) -> Bool {
+        while true {
+            var isSolved = false
+            
+            for strategy in strategies {
+                guard !self.solveOnce(using: strategy) else {
+                    isSolved = true
+                    break
+                }
+            }
+            
+            guard isSolved else {
+                break
+            }
+        }
+        
+        for index in 0..<81 {
+            guard self.grid.cells[index] != 0 else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    public mutating func solveOnce(using strategy: SudokuSolverStrategy) -> Bool {
         let solver: StrategySolver
         
         switch strategy {
@@ -80,6 +105,8 @@ public struct StrategicSudokuSolver : SudokuSolver {
             solver = HiddenPairStrategySolver(using: self)
         case .xWing:
             solver = XWingStrategySolver(using: self)
+        case .uniqueRectangleType1:
+            solver = UniqueRectangleType1StrategySolver(using: self)
         }
         
         guard let move = solver.solve() else {
@@ -104,31 +131,6 @@ public struct StrategicSudokuSolver : SudokuSolver {
         }
         
         self.movesMutable.append(move)
-        return true
-    }
-    
-    public mutating func solveUsing(strategies: [SudokuSolverStrategy]) -> Bool {
-        while true {
-            var isSolved = false
-            
-            for strategy in strategies {
-                guard !self.solveOnce(strategy: strategy) else {
-                    isSolved = true
-                    break
-                }
-            }
-            
-            guard isSolved else {
-                break
-            }
-        }
-        
-        for index in 0..<81 {
-            guard self.grid.cells[index] != 0 else {
-                return false
-            }
-        }
-        
         return true
     }
 }

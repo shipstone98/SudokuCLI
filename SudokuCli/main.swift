@@ -22,7 +22,7 @@ fileprivate func parseSudokuGrid(_ string: String) -> SudokuGrid {
     return grid
 }
 
-fileprivate func solve() {
+fileprivate func solve(using strategies: [SudokuSolverStrategy]? = nil) {
     /*
      var grid = SudokuGrid()
      var solver = RecursiveSudokuSolver(sudoku: grid)
@@ -45,18 +45,25 @@ fileprivate func solve() {
     // Hidden pair (block): 009032000000700000162000000010020560000900000050000107000000403026009000005870000
     // X-Wing (row): 041729030769003402032640719403900170607004903195370024214567398376090541958431267
     // X-Wing (column): 980062753065003000327050006790030500050009000832045009673591428249087005518020007
+    // UR Type 1: 502008967100700452067500381213657849654891273700004615821900034306000098005083026
 
     // NYT hard: 000000500080007002007034000000003000000000021010090635036040100400000057008020000
     // Devillish 123sudoku.co.uk: 096000700000001905050460080000503000040690003000080000010046500080105009000800040
     // Partially solved: 096058704000001965050469080000513400040690803000084000010946508080105009000800040
 
     let grid =
-        parseSudokuGrid("009030000000700000162000000000020560000900000050000007000000403026009000005870000")
+        parseSudokuGrid("502008967100700452067500381213657849654891273700004615821900034306000098005083026")
 
     var s = grid.print()
     print(s)
-    var solver = CombinatorySudokuSolver(sudoku: grid)
-    _ = solver.solve()
+    var solver = StrategicSudokuSolver(sudoku: grid)
+    
+    if let strategies = strategies {
+        _ = solver.solve(using: strategies)
+    } else {
+        _ = solver.solve()
+    }
+    
     s = solver.sudoku.print()
     print(s)
     var moveCount = 1
@@ -86,4 +93,4 @@ fileprivate func solve() {
     }
 }
 
-solve()
+solve(using: [.uniqueRectangleType1])
