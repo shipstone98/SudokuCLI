@@ -65,21 +65,21 @@ public struct StrategicSudokuSolver : SudokuSolver {
         
         switch strategy {
         case .fullHouse:
-            solver = FullHouseStrategySolver(solver: self)
+            solver = FullHouseStrategySolver(using: self)
         case .nakedSingle:
-            solver = NakedSingleStrategySolver(solver: self)
+            solver = NakedSingleStrategySolver(using: self)
         case .hiddenSingle:
-            solver = HiddenSingleStrategySolver(solver: self)
+            solver = HiddenSingleStrategySolver(using: self)
         case .pointingCandidate:
-            solver = PointingCandidateStrategySolver(solver: self)
+            solver = PointingCandidateStrategySolver(using: self)
         case .claimingCandidate:
-            solver = ClaimingCandidateStrategySolver(solver: self)
+            solver = ClaimingCandidateStrategySolver(using: self)
         case .nakedPair:
-            solver = NakedPairStrategySolver(solver: self)
+            solver = NakedPairStrategySolver(using: self)
         case .hiddenPair:
             return false
         case .xWing:
-            solver = XWingStrategySolver(solver: self)
+            solver = XWingStrategySolver(using: self)
         }
         
         guard let move = solver.solve() else {

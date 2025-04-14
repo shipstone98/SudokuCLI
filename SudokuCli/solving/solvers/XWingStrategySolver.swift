@@ -8,7 +8,7 @@
 internal struct XWingStrategySolver: StrategySolver {
     private let solver: StrategicSudokuSolver
     
-    internal init(solver: StrategicSudokuSolver) {
+    internal init(using solver: StrategicSudokuSolver) {
         self.solver = solver
     }
     
