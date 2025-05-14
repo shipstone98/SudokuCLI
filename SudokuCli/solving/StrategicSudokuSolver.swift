@@ -56,10 +56,12 @@ public struct StrategicSudokuSolver : SudokuSolver {
         }
     }
     
+    @discardableResult
     public mutating func solve() -> Bool {
         return self.solve(using: self.strategies)
     }
     
+    @discardableResult
     public mutating func solve(using strategies: [SudokuSolverStrategy]) -> Bool {
         while true {
             var isSolved = false
@@ -85,6 +87,7 @@ public struct StrategicSudokuSolver : SudokuSolver {
         return true
     }
     
+    @discardableResult
     public mutating func solveOnce(using strategy: SudokuSolverStrategy) -> Bool {
         let solver: StrategySolver
         

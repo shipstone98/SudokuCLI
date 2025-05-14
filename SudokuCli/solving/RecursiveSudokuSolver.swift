@@ -22,6 +22,7 @@ public struct RecursiveSudokuSolver : SudokuSolver {
         self.movesMutable = []
     }
     
+    @discardableResult
     public mutating func solve() -> Bool {
         return self.solve(at: 0)
     }

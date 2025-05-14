@@ -9,5 +9,6 @@ public protocol SudokuSolver {
     var moves: [SudokuSolverMove] { get }
     var sudoku: Sudoku { get }
     
+    @discardableResult
     mutating func solve() -> Bool
 }
