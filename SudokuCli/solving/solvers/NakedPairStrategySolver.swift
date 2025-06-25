@@ -13,15 +13,7 @@ internal struct NakedPairStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            guard let move = self.solveColumn() else {
-                return self.solveBlock()
-            }
-            
-            return move
-        }
-        
-        return move
+        self.solveRow() ?? self.solveColumn() ?? self.solveBlock()
     }
     
     private func solveBlock() -> SudokuSolverMove? {
@@ -33,8 +25,7 @@ internal struct NakedPairStrategySolver : StrategySolver {
                         
                         for rowOffset in 0..<3 {
                             for columnOffset in 0..<3 {
-                                let index =
-                                    ((blockRow + rowOffset) * 9)
+                                let index = ((blockRow + rowOffset) * 9)
                                     + blockColumn + columnOffset
                                 
                                 let candidates = self.solver.candidates[index]
@@ -47,18 +38,15 @@ internal struct NakedPairStrategySolver : StrategySolver {
                             }
                         }
                         
-                        if indices.count == 2 {
-                            if let move =
-                                self.solveBlock(
-                                    blockRow,
-                                    blockColumn,
-                                    indices.first!,
-                                    indices.last!,
-                                    n1,
-                                    n2
-                                ) {
-                                return move
-                            }
+                        if indices.count == 2, let move = self.solveBlock(
+                            blockRow,
+                            blockColumn,
+                            indices.first!,
+                            indices.last!,
+                            n1,
+                            n2
+                        ) {
+                            return move
                         }
                     }
                 }
@@ -81,8 +69,8 @@ internal struct NakedPairStrategySolver : StrategySolver {
         
         for rowOffset in 0..<3 {
             for columnOffset in 0..<3 {
-                let index =
-                    (blockRow + rowOffset) * 9 + blockColumn + columnOffset
+                let index = ((blockRow + rowOffset) * 9)
+                    + blockColumn + columnOffset
                 
                 guard !(index == index1 || index == index2) else {
                     continue
@@ -143,13 +131,12 @@ internal struct NakedPairStrategySolver : StrategySolver {
                     continue
                 }
                 
-                let location =
-                    SudokuSolverMoveLocation(
-                        row,
-                        column,
-                        0,
-                        removedCandidates
-                    )
+                let location = SudokuSolverMoveLocation(
+                    row,
+                    column,
+                    0,
+                    removedCandidates
+                )
                 
                 locations.append(location)
             }
@@ -175,17 +162,14 @@ internal struct NakedPairStrategySolver : StrategySolver {
                         }
                     }
                     
-                    if rows.count == 2 {
-                        if let move =
-                            self.solveColumn(
-                                column,
-                                rows.first!,
-                                rows.last!,
-                                n1,
-                                n2
-                            ) {
-                            return move
-                        }
+                    if rows.count == 2, let move = self.solveColumn(
+                        column,
+                        rows.first!,
+                        rows.last!,
+                        n1,
+                        n2
+                    ) {
+                        return move
                     }
                 }
             }
@@ -252,13 +236,12 @@ internal struct NakedPairStrategySolver : StrategySolver {
                 continue
             }
             
-            let location =
-                SudokuSolverMoveLocation(
-                    row,
-                    column,
-                    0,
-                    removedCandidates
-                )
+            let location = SudokuSolverMoveLocation(
+                row,
+                column,
+                0,
+                removedCandidates
+            )
             
             locations.append(location)
         }
@@ -283,17 +266,14 @@ internal struct NakedPairStrategySolver : StrategySolver {
                         }
                     }
                     
-                    if columns.count == 2 {
-                        if let move =
-                            self.solveRow(
-                                row,
-                                columns.first!,
-                                columns.last!,
-                                n1,
-                                n2
-                            ) {
-                            return move
-                        }
+                    if columns.count == 2, let move = self.solveRow(
+                        row,
+                        columns.first!,
+                        columns.last!,
+                        n1,
+                        n2
+                    ) {
+                        return move
                     }
                 }
             }
@@ -360,13 +340,12 @@ internal struct NakedPairStrategySolver : StrategySolver {
                 continue
             }
             
-            let location =
-                SudokuSolverMoveLocation(
-                    row,
-                    column,
-                    0,
-                    removedCandidates
-                )
+            let location = SudokuSolverMoveLocation(
+                row,
+                column,
+                0,
+                removedCandidates
+            )
             
             locations.append(location)
         }

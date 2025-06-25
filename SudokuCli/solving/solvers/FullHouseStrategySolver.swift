@@ -13,15 +13,7 @@ internal struct FullHouseStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            guard let move = self.solveColumn() else {
-                return self.solveBlock()
-            }
-            
-            return move
-        }
-        
-        return move
+        self.solveRow() ?? self.solveColumn() ?? self.solveBlock()
     }
     
     private func solveBlock() -> SudokuSolverMove? {
@@ -31,12 +23,11 @@ internal struct FullHouseStrategySolver : StrategySolver {
                     let candidates = solver.candidates[row * 9 + column]
                     
                     guard candidates.count != 1 else {
-                        let location =
-                            SudokuSolverMoveLocation(
-                                row,
-                                column,
-                                candidates[0]
-                            )
+                        let location = SudokuSolverMoveLocation(
+                            row,
+                            column,
+                            candidates[0]
+                        )
                         
                         return SudokuSolverMove(.fullHouse, location)
                     }
@@ -87,8 +78,11 @@ internal struct FullHouseStrategySolver : StrategySolver {
                 let candidates = solver.candidates[row * 9 + column]
                 
                 guard candidates.count != 1 else {
-                    let location =
-                        SudokuSolverMoveLocation(row, column, candidates[0])
+                    let location = SudokuSolverMoveLocation(
+                        row,
+                        column,
+                        candidates[0]
+                    )
                     
                     return SudokuSolverMove(.fullHouse, location)
                 }
@@ -117,8 +111,11 @@ internal struct FullHouseStrategySolver : StrategySolver {
                 let candidates = solver.candidates[row * 9 + column]
                 
                 guard candidates.count != 1 else {
-                    let location =
-                        SudokuSolverMoveLocation(row, column, candidates[0])
+                    let location = SudokuSolverMoveLocation(
+                        row,
+                        column,
+                        candidates[0]
+                    )
                     
                     return SudokuSolverMove(.fullHouse, location)
                 }

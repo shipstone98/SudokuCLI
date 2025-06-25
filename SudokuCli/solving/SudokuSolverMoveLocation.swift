@@ -5,7 +5,7 @@
 //  Created by Christopher Shipstone on 01/04/2025.
 //
 
-public struct SudokuSolverMoveLocation : Comparable {
+public struct SudokuSolverMoveLocation : Comparable, Codable, Hashable, Sendable {
     public let addedValue: Int
     public let column: Int
     public let removedCandidates: [Int]
@@ -35,17 +35,19 @@ public struct SudokuSolverMoveLocation : Comparable {
         self.row = row
     }
     
+    @inlinable
     public static func <(
         lhs: SudokuSolverMoveLocation,
         rhs: SudokuSolverMoveLocation
     ) -> Bool {
-        return lhs.row * 9 + lhs.column < rhs.row * 9 + rhs.column
+        lhs.row * 9 + lhs.column < rhs.row * 9 + rhs.column
     }
     
+    @inlinable
     public static func ==(
         lhs: SudokuSolverMoveLocation,
         rhs: SudokuSolverMoveLocation
     ) -> Bool {
-        return lhs.row == rhs.row && lhs.column == rhs.column
+        lhs.row == rhs.row && lhs.column == rhs.column
     }
 }

@@ -12,8 +12,10 @@ fileprivate func parseSudokuGrid(_ string: String) -> SudokuGrid {
     
     for row in 0..<9 {
         for column in 0..<9 {
-            let index =
-                string.index(string.startIndex, offsetBy: row * 9 + column)
+            let index = string.index(
+                string.startIndex,
+                offsetBy: row * 9 + column
+            )
             
             grid[row, column] = string[index].wholeNumberValue ?? 0
         }
@@ -51,12 +53,10 @@ fileprivate func solve(using strategies: [SudokuSolverStrategy]? = nil) {
     // Devillish 123sudoku.co.uk: 096000700000001905050460080000503000040690003000080000010046500080105009000800040
     // Partially solved: 096058704000001965050469080000513400040690803000084000010946508080105009000800040
 
-    let grid =
-        parseSudokuGrid("502008967100700452067500381213657849654891273700004615821900034306000098005083026")
-
+    let grid = parseSudokuGrid("040005083800003000900008006000900500050080100008600000017040000000020030006000020")
     var s = grid.print()
     print(s)
-    var solver = StrategicSudokuSolver(sudoku: grid)
+    var solver = StrategicSudokuSolver(grid)
     
     if let strategies = strategies {
         _ = solver.solve(using: strategies)
@@ -93,4 +93,10 @@ fileprivate func solve(using strategies: [SudokuSolverStrategy]? = nil) {
     }
 }
 
-solve(using: [.uniqueRectangleType1])
+let clock = ContinuousClock()
+
+let time = clock.measure {
+    solve()
+}
+
+print(time)

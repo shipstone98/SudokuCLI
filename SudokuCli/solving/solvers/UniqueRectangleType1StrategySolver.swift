@@ -79,9 +79,11 @@ internal struct UniqueRectangleType1StrategySolver : StrategySolver {
         ]
         
         for (row, column) in indices {
-            let count = self.solver.candidates[row * 9 + column].count{ !removedCandidates.contains($0) }
+            let first = self.solver.candidates[row * 9 + column].first{
+                !removedCandidates.contains($0)
+            }
             
-            guard count > 0 else {
+            guard let first else {
                 continue
             }
             

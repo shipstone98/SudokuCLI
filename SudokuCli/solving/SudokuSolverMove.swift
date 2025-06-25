@@ -5,7 +5,7 @@
 //  Created by Christopher Shipstone on 01/04/2025.
 //
 
-public struct SudokuSolverMove {
+public struct SudokuSolverMove : Codable, Hashable, Sendable {
     public let locations: [SudokuSolverMoveLocation]
     public let strategy: SudokuSolverStrategy?
     

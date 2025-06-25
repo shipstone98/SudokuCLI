@@ -13,15 +13,7 @@ internal struct HiddenSingleStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            guard let move = self.solveColumn() else {
-                return self.solveBlock()
-            }
-            
-            return move
-        }
-        
-        return move
+        self.solveRow() ?? self.solveColumn() ?? self.solveBlock()
     }
     
     private func solveBlock() -> SudokuSolverMove? {

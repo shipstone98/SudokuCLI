@@ -13,11 +13,7 @@ internal struct XWingStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            return self.solveColumn()
-        }
-        
-        return move
+        return self.solveRow() ?? self.solveColumn()
     }
     
     private func solveColumn() -> SudokuSolverMove? {
@@ -58,25 +54,23 @@ internal struct XWingStrategySolver : StrategySolver {
                         }
                         
                         if self.solver.candidates[column1Row1 * 9 + column].contains(n) {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    column1Row1,
-                                    column,
-                                    0,
-                                    n
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                column1Row1,
+                                column,
+                                0,
+                                n
+                            )
                             
                             locations.append(location)
                         }
                         
                         if self.solver.candidates[column1Row2 * 9 + column].contains(n) {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    column1Row2,
-                                    column,
-                                    0,
-                                    n
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                column1Row2,
+                                column,
+                                0,
+                                n
+                            )
                             
                             locations.append(location)
                         }
@@ -132,15 +126,23 @@ internal struct XWingStrategySolver : StrategySolver {
                         }
                         
                         if self.solver.candidates[row * 9 + row1Column1].contains(n) {
-                            let location =
-                                SudokuSolverMoveLocation(row, row1Column1, 0, n)
+                            let location = SudokuSolverMoveLocation(
+                                row,
+                                row1Column1,
+                                0,
+                                n
+                            )
                             
                             locations.append(location)
                         }
                         
                         if self.solver.candidates[row * 9 + row1Column2].contains(n) {
-                            let location =
-                                SudokuSolverMoveLocation(row, row1Column2, 0, n)
+                            let location = SudokuSolverMoveLocation(
+                                row,
+                                row1Column2,
+                                0,
+                                n
+                            )
                             
                             locations.append(location)
                         }

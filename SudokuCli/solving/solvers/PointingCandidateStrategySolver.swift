@@ -75,12 +75,16 @@ internal struct PointingCandidateStrategySolver : StrategySolver {
             }
         }
         
-        guard rows.count == 0 else {
+        guard rows.isEmpty else {
             var locations: [SudokuSolverMoveLocation] = []
             
             for row in rows {
-                let location =
-                    SudokuSolverMoveLocation(row, column, 0, n)
+                let location = SudokuSolverMoveLocation(
+                    row,
+                    column,
+                    0,
+                    n
+                )
                 
                 locations.append(location)
             }
@@ -108,12 +112,16 @@ internal struct PointingCandidateStrategySolver : StrategySolver {
             }
         }
         
-        guard columns.count == 0 else {
+        guard columns.isEmpty else {
             var locations: [SudokuSolverMoveLocation] = []
             
             for column in columns {
-                let location =
-                    SudokuSolverMoveLocation(row, column, 0, n)
+                let location = SudokuSolverMoveLocation(
+                    row,
+                    column,
+                    0,
+                    n
+                )
                 
                 locations.append(location)
             }

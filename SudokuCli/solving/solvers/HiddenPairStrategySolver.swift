@@ -13,15 +13,7 @@ internal struct HiddenPairStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            guard let move = self.solveColumn() else {
-                return self.solveBlock()
-            }
-            
-            return move
-        }
-        
-        return move
+        self.solveRow() ?? self.solveColumn() ?? self.solveBlock()
     }
     
     private func solveBlock() -> SudokuSolverMove? {
@@ -34,8 +26,7 @@ internal struct HiddenPairStrategySolver : StrategySolver {
                         
                         for rowOffset in 0..<3 {
                             for columnOffset in 0..<3 {
-                                let index =
-                                    (blockRow + rowOffset) * 3 + blockColumn + columnOffset
+                                let index = (blockRow + rowOffset) * 3 + blockColumn + columnOffset
                                 
                                 if self.solver.candidates[index].contains(n1) {
                                     n1Indices.append(index)
@@ -52,16 +43,11 @@ internal struct HiddenPairStrategySolver : StrategySolver {
                             let index2 = n2Indices[1]
                             var locations: [SudokuSolverMoveLocation] = []
                             let predicate = { !($0 == n1 || $0 == n2) }
-                            
-                            let index1Candidates =
-                                self.solver.candidates[index1].filter(predicate)
-                            
-                            let index2Candidates =
-                                self.solver.candidates[index2].filter(predicate)
+                            let index1Candidates = self.solver.candidates[index1].filter(predicate)
+                            let index2Candidates = self.solver.candidates[index2].filter(predicate)
                             
                             if !index1Candidates.isEmpty {
-                                let location =
-                                SudokuSolverMoveLocation(
+                                let location = SudokuSolverMoveLocation(
                                     index1 / 9,
                                     index1 % 9,
                                     0,
@@ -72,8 +58,7 @@ internal struct HiddenPairStrategySolver : StrategySolver {
                             }
                             
                             if !index2Candidates.isEmpty {
-                                let location =
-                                SudokuSolverMoveLocation(
+                                let location = SudokuSolverMoveLocation(
                                     index2 / 9,
                                     index2 % 9,
                                     0,
@@ -119,33 +104,27 @@ internal struct HiddenPairStrategySolver : StrategySolver {
                         let row2 = n2Rows[1]
                         var locations: [SudokuSolverMoveLocation] = []
                         let predicate = { !($0 == n1 || $0 == n2) }
-                        
-                        let row1Candidates =
-                            self.solver.candidates[row1 * 9 + column].filter(predicate)
-                        
-                        let row2Candidates =
-                            self.solver.candidates[row2 * 9 + column].filter(predicate)
+                        let row1Candidates = self.solver.candidates[row1 * 9 + column].filter(predicate)
+                        let row2Candidates = self.solver.candidates[row2 * 9 + column].filter(predicate)
                         
                         if !row1Candidates.isEmpty {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    row1,
-                                    column,
-                                    0,
-                                    row1Candidates
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                row1,
+                                column,
+                                0,
+                                row1Candidates
+                            )
                             
                             locations.append(location)
                         }
                         
                         if !row2Candidates.isEmpty {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    row2,
-                                    column,
-                                    0,
-                                    row2Candidates
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                row2,
+                                column,
+                                0,
+                                row2Candidates
+                            )
                             
                             locations.append(location)
                         }
@@ -185,33 +164,27 @@ internal struct HiddenPairStrategySolver : StrategySolver {
                         let column2 = n2Columns[1]
                         var locations: [SudokuSolverMoveLocation] = []
                         let predicate = { !($0 == n1 || $0 == n2) }
-                        
-                        let column1Candidates =
-                            self.solver.candidates[row * 9 + column1].filter(predicate)
-                        
-                        let column2Candidates =
-                            self.solver.candidates[row * 9 + column2].filter(predicate)
+                        let column1Candidates = self.solver.candidates[row * 9 + column1].filter(predicate)
+                        let column2Candidates = self.solver.candidates[row * 9 + column2].filter(predicate)
                         
                         if !column1Candidates.isEmpty {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    row,
-                                    column1,
-                                    0,
-                                    column1Candidates
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                row,
+                                column1,
+                                0,
+                                column1Candidates
+                            )
                             
                             locations.append(location)
                         }
                         
                         if !column2Candidates.isEmpty {
-                            let location =
-                                SudokuSolverMoveLocation(
-                                    row,
-                                    column2,
-                                    0,
-                                    column2Candidates
-                                )
+                            let location = SudokuSolverMoveLocation(
+                                row,
+                                column2,
+                                0,
+                                column2Candidates
+                            )
                             
                             locations.append(location)
                         }

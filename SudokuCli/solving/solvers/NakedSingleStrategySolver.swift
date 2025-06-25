@@ -22,8 +22,11 @@ internal struct NakedSingleStrategySolver : StrategySolver {
                     continue
                 }
                 
-                let location =
-                    SudokuSolverMoveLocation(row, column, candidates[0])
+                let location = SudokuSolverMoveLocation(
+                    row,
+                    column,
+                    candidates[0]
+                )
                 
                 return SudokuSolverMove(.nakedSingle, location)
             }

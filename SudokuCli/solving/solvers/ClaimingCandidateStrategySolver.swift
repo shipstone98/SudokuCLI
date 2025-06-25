@@ -13,23 +13,23 @@ internal struct ClaimingCandidateStrategySolver : StrategySolver {
     }
     
     internal func solve() -> SudokuSolverMove? {
-        guard let move = self.solveRow() else {
-            return self.solveColumn()
-        }
-        
-        return move
+        self.solveRow() ?? self.solveColumn()
     }
     
     private func solve(_ n: Int, _ indices: [(Int, Int)]) -> SudokuSolverMove? {
-        guard indices.count > 0 else {
+        guard !indices.isEmpty else {
             return nil
         }
         
         var locations: [SudokuSolverMoveLocation] = []
         
         for (currentRow, currentColumn) in indices {
-            let location =
-                SudokuSolverMoveLocation(currentRow, currentColumn, 0, n)
+            let location = SudokuSolverMoveLocation(
+                currentRow,
+                currentColumn,
+                0,
+                n
+            )
             
             locations.append(location)
         }

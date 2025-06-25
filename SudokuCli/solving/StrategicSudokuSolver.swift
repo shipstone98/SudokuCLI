@@ -8,29 +8,27 @@
 public struct StrategicSudokuSolver : SudokuSolver {
     internal private(set) var candidates: [[Int]]
     internal private(set) var grid: SudokuGrid
-    internal private(set) var movesMutable: [SudokuSolverMove]
+    public private(set) var moves: [SudokuSolverMove]
     private let strategies: [SudokuSolverStrategy]
     
-    public var moves: [SudokuSolverMove] {
-        return self.movesMutable
-    }
-    
     public var sudoku: Sudoku {
-        return self.grid
+        self.grid
     }
     
-    public init(sudoku: Sudoku) {
+    public init(_ sudoku: Sudoku) {
         var candidates: [[Int]] = []
-        let grid = SudokuGrid(sudoku: sudoku)
+        let grid = SudokuGrid(sudoku)
         
-        for i in 0..<81 {
-            let cellCandidates = grid.getCandidates(index: i)
-            candidates.append(cellCandidates)
+        for row in 0..<9 {
+            for column in 0..<9 {
+                let cellCandidates = grid.getCandidates(row, column)
+                candidates.append(cellCandidates)
+            }
         }
         
         self.candidates = candidates
         self.grid = grid
-        self.movesMutable = []
+        self.moves = []
         self.strategies = SudokuSolverStrategy.allCases
     }
     
@@ -48,8 +46,8 @@ public struct StrategicSudokuSolver : SudokuSolver {
         
         for rowOffset in 0..<3 {
             for columnOffset in 0..<3 {
-                let index =
-                    (blockRow + rowOffset) * 9 + (blockColumn + columnOffset)
+                let index = ((blockRow + rowOffset) * 9)
+                    + (blockColumn + columnOffset)
                 
                 self.candidates[index].removeAll { $0 == n }
             }
@@ -58,7 +56,7 @@ public struct StrategicSudokuSolver : SudokuSolver {
     
     @discardableResult
     public mutating func solve() -> Bool {
-        return self.solve(using: self.strategies)
+        self.solve(using: self.strategies)
     }
     
     @discardableResult
@@ -133,7 +131,7 @@ public struct StrategicSudokuSolver : SudokuSolver {
             }
         }
         
-        self.movesMutable.append(move)
+        self.moves.append(move)
         return true
     }
 }

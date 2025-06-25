@@ -7,24 +7,20 @@
 
 public struct RecursiveSudokuSolver : SudokuSolver {
     internal var grid: SudokuGrid
-    internal private(set) var movesMutable: [SudokuSolverMove]
-    
-    public var moves: [SudokuSolverMove] {
-        return self.movesMutable
-    }
+    public private(set) var moves: [SudokuSolverMove]
     
     public var sudoku: Sudoku {
-        return self.grid
+        self.grid
     }
     
-    public init(sudoku: Sudoku) {
-        self.grid = SudokuGrid(sudoku: sudoku)
-        self.movesMutable = []
+    public init(_ sudoku: Sudoku) {
+        self.grid = SudokuGrid(sudoku)
+        self.moves = []
     }
     
     @discardableResult
     public mutating func solve() -> Bool {
-        return self.solve(at: 0)
+        self.solve(at: 0)
     }
     
     private mutating func solve(at index: Int) -> Bool {
@@ -32,23 +28,24 @@ public struct RecursiveSudokuSolver : SudokuSolver {
             return self.solveNext(at: index)
         }
         
-        var candidates = self.grid.getCandidates(index: index)
-        candidates.shuffle()
+        let row = index / 9
+        let column = index % 9
+        
+        let candidates = self.grid
+            .getCandidates(row, column)
+            .shuffled()
         
         for candidate in candidates {
             self.grid.cells[index] = candidate
-            
-            let location =
-                SudokuSolverMoveLocation(index / 9, index % 9, candidate)
-            
+            let location = SudokuSolverMoveLocation(row, column, candidate)
             let move = SudokuSolverMove(nil, location)
-            self.movesMutable.append(move)
+            self.moves.append(move)
             
             guard !self.solveNext(at: index) else {
                 return true
             }
             
-            self.movesMutable.removeLast()
+            self.moves.removeLast()
         }
         
         self.grid.cells[index] = 0
@@ -56,6 +53,6 @@ public struct RecursiveSudokuSolver : SudokuSolver {
     }
     
     private mutating func solveNext(at index: Int) -> Bool {
-        return index == 80 || self.solve(at: index + 1)
+        index == 80 || self.solve(at: index + 1)
     }
 }

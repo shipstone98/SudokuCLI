@@ -5,7 +5,7 @@
 //  Created by Christopher Shipstone on 01/04/2025.
 //
 
-public enum SudokuSolverStrategy : CaseIterable, CustomStringConvertible {
+public enum SudokuSolverStrategy : CaseIterable, Codable, Comparable, Hashable, Sendable {
     case fullHouse
     case nakedSingle
     case hiddenSingle
@@ -15,27 +15,4 @@ public enum SudokuSolverStrategy : CaseIterable, CustomStringConvertible {
     case hiddenPair
     case xWing
     case uniqueRectangleType1
-    
-    public var description: String {
-        switch self {
-        case .fullHouse:
-            return "Full House"
-        case .nakedSingle:
-            return "Naked Single"
-        case .hiddenSingle:
-            return "Hidden Single"
-        case .pointingCandidate:
-            return "Pointing Candidate"
-        case .claimingCandidate:
-            return "Claiming Candidate"
-        case .nakedPair:
-            return "Naked Pair"
-        case .hiddenPair:
-            return "Hidden Pair"
-        case .xWing:
-            return "X-Wing"
-        case .uniqueRectangleType1:
-            return "Unique Rectangle Type 1"
-        }
-    }
 }
