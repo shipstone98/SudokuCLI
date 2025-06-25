@@ -18,9 +18,9 @@ public struct CombinatorySudokuSolver: SudokuSolver {
         self.moves = []
     }
     
-    public mutating func solve() -> Bool {
+    public mutating func solve<T>(using generator: inout T) -> Bool where T : RandomNumberGenerator {
         var strategySolver = StrategicSudokuSolver(self.grid)
-        var isSolved = strategySolver.solve()
+        var isSolved = strategySolver.solve(using: &generator)
         self.grid = strategySolver.grid
         self.moves.append(contentsOf: strategySolver.moves)
         
@@ -29,7 +29,7 @@ public struct CombinatorySudokuSolver: SudokuSolver {
         }
         
         var recursiveSolver = RecursiveSudokuSolver(strategySolver.grid)
-        isSolved = recursiveSolver.solve()
+        isSolved = recursiveSolver.solve(using: &generator)
         self.moves.append(contentsOf: recursiveSolver.moves)
         self.grid = recursiveSolver.grid
         return isSolved

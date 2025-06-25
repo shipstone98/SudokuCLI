@@ -55,7 +55,7 @@ public struct StrategicSudokuSolver : SudokuSolver {
     }
     
     @discardableResult
-    public mutating func solve() -> Bool {
+    public mutating func solve<T>(using generator: inout T) -> Bool where T : RandomNumberGenerator {
         self.solve(using: self.strategies)
     }
     

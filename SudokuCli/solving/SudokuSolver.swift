@@ -10,5 +10,13 @@ public protocol SudokuSolver {
     var sudoku: Sudoku { get }
     
     @discardableResult
-    mutating func solve() -> Bool
+    mutating func solve<T>(using generator: inout T) -> Bool where T : RandomNumberGenerator
+}
+
+public extension SudokuSolver {
+    @discardableResult
+    mutating func solve() -> Bool {
+        var generator = SystemRandomNumberGenerator()
+        return self.solve(using: &generator)
+    }
 }
